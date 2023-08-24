@@ -1,15 +1,20 @@
 #ifndef CONSOLE_INTERACTION_HPP
 #define CONSOLE_INTERACTION_HPP
 
+#include <windows.h>
 #include <iostream>
 #include <string>
 
-#define extern_ extern
+#include "definitions.hpp"
 
 using std::to_string;
 
-extern_ int cursorRetX = 0;
-extern_ int cursorRetY = 0;
+void terminalSize(int& width, int& height) {
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+	width = (int)(csbi.srWindow.Right - csbi.srWindow.Left + 1);
+	height = (int)(csbi.srWindow.Bottom - csbi.srWindow.Top - 1);
+}
 
 void move(int x, int y, bool reset = false) {
 	std::cout << ("\033[" + to_string(x) + ";" + to_string(y) + "H");

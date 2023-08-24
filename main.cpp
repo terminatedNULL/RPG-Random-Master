@@ -1,17 +1,22 @@
 #include <iostream>
 
 #define extern_
-#include "consoleInteraction.hpp"
+#include "definitions.hpp"
 #undef extern_
 
+#include "consoleInteraction.hpp"
 #include "consoleGUI.hpp"
 
 int main() {
+	int width, height;
+	terminalSize(width, height);
 
-	setTextColor(255, 0, 0);
-	rectangle(0, 0, 10, 10);
-	clearColors();
-	std::cout << "test";
+	setTextColor(currTextCol.r, currTextCol.g, currTextCol.b);
+	rectangle(0, 0, width, 5);
+
+	while (true) {
+		//Main event loop
+	}
 
 	exit(1);
 }
