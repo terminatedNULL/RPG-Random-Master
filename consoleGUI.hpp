@@ -69,7 +69,8 @@ void setRectText(
 		break;
 	case cGUI::TOP_CENTER:
 		move(
-			rect.x + rect.borderWidth + 1 + ceil((rect.width - text.length()) / 2) + xOffset,
+			rect.x + rect.borderWidth + 1 + 
+				(rect.width - text.length()) / 2 + xOffset,
 			rect.y + rect.borderWidth + 1 + yOffset
 		);
 		break;
@@ -82,18 +83,42 @@ void setRectText(
 	case cGUI::LEFT_CENTER:
 		move(
 			rect.x + rect.borderWidth + 1 + xOffset,
-			rect.y + 1 + ceil(rect.height) / 2 + yOffset
+			rect.y + 1 + rect.height / 2 + yOffset
 		);
 		break;
 	case cGUI::CENTER:
+		move(
+			rect.x + rect.borderWidth + 1 +
+				(rect.width - text.length()) / 2 + xOffset,
+			rect.y + 1 + 
+				rect.height / 2 + yOffset
+		);
 		break;
 	case cGUI::RIGHT_CENTER:
+		move(
+			rect.x + rect.width - text.length()
+				+ xOffset,
+			rect.y + 1 + rect.height / 2 + yOffset
+		);
 		break;
 	case cGUI::BOTTOM_LEFT:
+		move(
+			rect.x + rect.borderWidth + 1 + xOffset,
+			rect.y + rect.height - rect.borderWidth + yOffset
+		);
 		break;
 	case cGUI::BOTTOM_CENTER:
+		move(
+			rect.x + rect.borderWidth + 1 +
+			(rect.width - text.length()) / 2 + xOffset,
+			rect.y - rect.borderWidth + rect.height + yOffset
+		);
 		break;
 	case cGUI::BOTTOM_RIGHT:
+		move(
+			rect.x + rect.width - text.length() + xOffset,
+			rect.y - rect.borderWidth + rect.height + yOffset
+		);
 		break;
 	}
 	std::cout << text;

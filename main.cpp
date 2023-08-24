@@ -10,7 +10,7 @@ int main() {
 	terminalSize(width, height);
 
 	cGUI::Rectangle titleBar = rectangle(0, 0, width, 5);
-	setRectText(titleBar, "Test Text", cGUI::LEFT_CENTER);
+	setRectText(titleBar, "<RPG Random Master >", cGUI::CENTER);
 
 	while (true) {
 		//Main event loop
