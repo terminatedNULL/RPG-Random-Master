@@ -4,22 +4,14 @@
 #include <iostream>
 #include <string>
 
-#define extern_ extern
-
-extern_ int cursorRetX = 0;
-extern_ int cursorRetY = 0;
-extern_ cGUI::RGB currTextCol = { 255, 255, 255 };
-extern_ cGUI::RGB currBackCol = { 0, 0, 0 };
-
-
 namespace cGUI {
-	typedef struct {
+	struct RGB {
 		int r;
 		int g;
 		int b;
-	} RGB;
+	};
 
-	typedef struct {
+	struct Rectangle {
 		int x;
 		int y;
 		int width;
@@ -30,7 +22,7 @@ namespace cGUI {
 		RGB borderColor = { 255, 255, 255 };
 		RGB fillColor = { 0, 0, 0 };
 		std::string text[9];
-	} Rectangle;
+	};
 
 	enum Handle {
 		TOP_LEFT,

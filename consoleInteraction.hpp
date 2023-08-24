@@ -5,9 +5,16 @@
 #include <iostream>
 #include <string>
 
+#include "globals.hpp"
 #include "definitions.hpp"
 
 using std::to_string;
+
+void setRGB(cGUI::RGB& obj, int r, int g, int b) {
+	obj.r = r;
+	obj.g = g;
+	obj.b = b;
+}
 
 void terminalSize(int& width, int& height) {
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -17,9 +24,9 @@ void terminalSize(int& width, int& height) {
 }
 
 void move(int x, int y, bool reset = false) {
-	std::cout << ("\033[" + to_string(x) + ";" + to_string(y) + "H");
+	std::cout << ("\033[" + to_string(y) + ";" + to_string(x) + "H");
 	if(reset) { 
-		std::cout << ("\033[" + to_string(x) + ";" + to_string(y) + "H");
+		std::cout << ("\033[" + to_string(y) + ";" + to_string(x) + "H");
 	}
 }
 
@@ -38,8 +45,8 @@ void setBackgroundColor(int r, int g, int b) {
 }
 
 void clearColors() {
-	currTextCol = { 255, 255, 255 };
-	currBackCol = { 0, 0, 0 };
+	setRGB(currTextCol, 255, 255, 255);
+	setRGB(currBackCol, 0, 0, 0);
 	std::cout << "\033[0m";
 }
 

@@ -1,6 +1,9 @@
 #ifndef CONSOLE_GUI_HPP
 #define CONSOLE_GUI_HPP
 
+#include <math.h>
+
+#include "globals.hpp"
 #include "definitions.hpp"
 #include "consoleInteraction.hpp"
 
@@ -52,8 +55,48 @@ cGUI::Rectangle rectangle(
 	return rect;
 }
 
-void setText(cGUI::Rectangle& rect, std::string text, cGUI::Handle position) {
+void setRectText(
+	cGUI::Rectangle& rect, std::string text, cGUI::Handle position,
+	int xOffset = 0, int yOffset = 0
+) {
 	rect.text[position] = text;
+	switch (position) {
+	case cGUI::TOP_LEFT:
+		move(
+			rect.x + rect.borderWidth + 1 + xOffset,
+			rect.y + rect.borderWidth + 1 + yOffset
+		);
+		break;
+	case cGUI::TOP_CENTER:
+		move(
+			rect.x + rect.borderWidth + 1 + ceil((rect.width - text.length()) / 2) + xOffset,
+			rect.y + rect.borderWidth + 1 + yOffset
+		);
+		break;
+	case cGUI::TOP_RIGHT:
+		move(
+			rect.x + rect.width - text.length() + xOffset,
+			rect.y + rect.borderWidth + 1 + yOffset
+		);
+		break;
+	case cGUI::LEFT_CENTER:
+		move(
+			rect.x + rect.borderWidth + 1 + xOffset,
+			rect.y + 1 + ceil(rect.height) / 2 + yOffset
+		);
+		break;
+	case cGUI::CENTER:
+		break;
+	case cGUI::RIGHT_CENTER:
+		break;
+	case cGUI::BOTTOM_LEFT:
+		break;
+	case cGUI::BOTTOM_CENTER:
+		break;
+	case cGUI::BOTTOM_RIGHT:
+		break;
+	}
+	std::cout << text;
 }
 
 void line(int x1, int y1, int x2, int y2, bool reset = false) {
