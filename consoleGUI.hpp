@@ -20,7 +20,7 @@ void rectangle(
 		repeatChar(borderChar, width, true);
 	}
 
-	for (int i = 0; i < height; i++) {
+	for (int i = 0; i < height - (borderWidth * 2); i++) {
 		repeatChar(borderChar, borderWidth);
 		repeatChar(fillChar, (width - borderWidth * 2));
 		repeatChar(borderChar, borderWidth, true);

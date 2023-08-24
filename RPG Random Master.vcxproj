@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="consoleGUI.hpp" />
+    <ClInclude Include="definitions.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="consoleInteraction.hpp" />
