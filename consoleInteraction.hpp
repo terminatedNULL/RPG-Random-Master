@@ -38,6 +38,8 @@ void setBackgroundColor(int r, int g, int b) {
 }
 
 void clearColors() {
+	currTextCol = { 255, 255, 255 };
+	currBackCol = { 0, 0, 0 };
 	std::cout << "\033[0m";
 }
 
