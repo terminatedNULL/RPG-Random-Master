@@ -12,16 +12,33 @@ namespace cGUI {
 	};
 
 	struct Rectangle {
-		int x;
-		int y;
-		int width;
-		int height;
-		char borderChar = '#';
-		int borderWidth = 1;
-		char fillChar = ' ';
-		RGB borderColor = { 255, 255, 255 };
-		RGB fillColor = { 0, 0, 0 };
-		std::string text[9];
+		int x, y;
+		int width, height;
+		int borderWidth;
+		char borderChar;
+		char fillChar;
+		RGB borderColor;
+		RGB fillColor;
+		RGB textColor;
+		std::string text;
+		enum Handle textPos;
+	};
+
+	struct FancyRectangle {
+		int x, y;
+		int width, height;
+		int borderWidth;
+		char cornerChars[4];
+		char horizontalChar;
+		char verticalChar;
+		char fillChar;
+		RGB cornerColor;
+		RGB horizontalColor;
+		RGB verticalColor;
+		RGB fillColor;
+		RGB textColor;
+		std::string text;
+		int textPos;
 	};
 
 	enum Handle {

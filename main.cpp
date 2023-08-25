@@ -9,9 +9,10 @@ int main() {
 	int width, height;
 	terminalSize(width, height);
 
-	cGUI::Rectangle titleBar = rectangle(0, 0, width, 5);
+	cGUI::Rectangle titleBar = createRectangle(0, 0, width, 5);
+	setRectColor(titleBar, { 255, 0, 0 }, {0, 255, 0}, {0, 0, 255});
 	setRectText(titleBar, "<RPG Random Master >", cGUI::CENTER);
-
+	 
 	while (true) {
 		//Main event loop
 	}

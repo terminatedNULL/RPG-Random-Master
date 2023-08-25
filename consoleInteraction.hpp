@@ -30,18 +30,18 @@ void move(int x, int y, bool reset = false) {
 	}
 }
 
-void setTextColor(int r, int g, int b) {
+void setTextColor(cGUI::RGB color) {
 	std::cout << ("\033[38;2;" + 
-				  to_string(r) + ";" + 
-				  to_string(g) + ";" + 
-				  to_string(b) + "m");
+				  to_string(color.r) + ";" + 
+				  to_string(color.g) + ";" +
+				  to_string(color.b) + "m");
 }
 
-void setBackgroundColor(int r, int g, int b) {
+void setBackgroundColor(cGUI::RGB color) {
 	std::cout << ("\033[38;2;" +
-		to_string(r) + ";" +
-		to_string(g) + ";" +
-		to_string(b) + "m");
+		to_string(color.r) + ";" +
+		to_string(color.g) + ";" +
+		to_string(color.b) + "m");
 }
 
 void clearColors() {

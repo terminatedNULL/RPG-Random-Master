@@ -5,7 +5,8 @@
 
 int cursorRetX;
 int cursorRetY;
-struct cGUI::RGB currTextCol;
-struct cGUI::RGB currBackCol;
+struct cGUI::RGB currTextCol = { 255, 255, 255 };
+struct cGUI::RGB currBackCol = { 0, 0, 0 };
+const struct cGUI::RGB BLANK_RGB = { -1, -1, -1 };
 
 #endif
