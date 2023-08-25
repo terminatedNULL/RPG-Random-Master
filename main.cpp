@@ -7,15 +7,16 @@
 
 int main() {
 	int width, height;
-	terminalSize(width, height);
+	terminalSize(width, height); 
+	height += 3;
 
-	cGUI::Rectangle titleBar = createRectangle(0, 0, width, 5);
-	setRectColor(titleBar, { 255, 0, 0 }, {0, 255, 0}, {0, 0, 255});
-	setRectText(titleBar, "<RPG Random Master >", cGUI::CENTER);
-
-	cGUI::FancyRectangle footerBar = createFancyRectangle(
-										0, height - 5, width, 5
-									 );
+	cGUI::FancyRectangle titleBar = createFancyRectangle(
+		1, 1, width, 5, 1, cGUI::doubleCorners, 205, 186
+	);
+	setRectText(titleBar, "< RPG Random Master >", cGUI::CENTER);
+	setRectColor(titleBar, { 255, 0, 0 }, { 0, 255, 0 }, { 0, 0, 255 },
+		{ 255, 0, 0 }, { 0, 0, 255 }
+	);
 	 
 	while (true) {
 		//Main event loop

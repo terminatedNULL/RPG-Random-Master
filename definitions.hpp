@@ -5,6 +5,10 @@
 #include <string>
 
 namespace cGUI {
+
+	int singleCorners[] = { 218, 191, 192, 127 };
+	int doubleCorners[] = { 201, 187, 200, 188 };
+
 	struct RGB {
 		int r;
 		int g;

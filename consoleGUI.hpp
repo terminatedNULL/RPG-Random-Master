@@ -24,12 +24,16 @@ cGUI::FancyRectangle createFancyRectangle(
 	int borderWidth = 1,
 	int cornerChars[4] = cornerDefault,
 	char horizontalChar = '-', char verticalChar = '|',
-	char fillChar = ' '
+	char fillChar = 32
 );
 void drawRectangle(cGUI::Rectangle& rect);
 void drawRectangle(cGUI::FancyRectangle& rect);
 void setRectText(
 	cGUI::Rectangle& rect, std::string text, cGUI::Handle position,
+	int xOffset = 0, int yOffset = 0
+);
+void setRectText(
+	cGUI::FancyRectangle& rect, std::string text, cGUI::Handle position,
 	int xOffset = 0, int yOffset = 0
 );
 void setRectColor(
@@ -105,7 +109,8 @@ void drawRectangle(cGUI::Rectangle& rect) {
 
 	for (int i = 0; i < rect.height - (rect.borderWidth * 2); i++) {
 		repeatChar(rect.borderChar, rect.borderWidth, false);
-		setBackgroundColor(rect.fillColor);
+		if (rect.fillChar == ' ') { setBackgroundColor(rect.fillColor); }
+			else { setTextColor(rect.fillColor); }
 		repeatChar(rect.fillChar, (rect.width - rect.borderWidth * 2), false);
 		clearColors();
 		setTextColor(rect.borderColor);
@@ -121,36 +126,50 @@ void drawRectangle(cGUI::Rectangle& rect) {
 		setTextColor(rect.textColor);
 		setBackgroundColor(rect.fillColor);
 		std::cout << rect.text;
-		clearColors();
 	}
+	clearColors();
 }
 
 void drawRectangle(cGUI::FancyRectangle& rect) {
 	clearColors();
 	move(rect.x, rect.y);
 
-	setTextColor(rect.cornerColor);
-	repeatExtChar(rect.cornerChars[0], rect.borderWidth, false);
-	setTextColor(rect.horizontalColor);
-	repeatExtChar(rect.horizontalChar, rect.width - (rect.borderWidth * 2), false);
-	setTextColor(rect.cornerColor);
-	repeatExtChar(rect.cornerChars[1], rect.borderWidth, false);
+	for (int i = 0; i < rect.borderWidth; i++) {
+		setTextColor(rect.cornerColor);
+		repeatExtChar(rect.cornerChars[0], rect.borderWidth, false);
+		setTextColor(rect.horizontalColor);
+		repeatExtChar(rect.horizontalChar, rect.width - (rect.borderWidth * 2), false);
+		setTextColor(rect.cornerColor);
+		repeatExtChar(rect.cornerChars[1], rect.borderWidth, false);
+	}
 
 	for (int i = 0; i < rect.height - (rect.borderWidth * 2); i++) {
 		setTextColor(rect.verticalColor);
 		repeatExtChar(rect.verticalChar, rect.borderWidth, false);
-		setTextColor(rect.fillColor);
+		if (rect.fillChar == ' ') { setBackgroundColor(rect.fillColor); }
+		else { setTextColor(rect.fillColor); }
 		repeatExtChar(rect.fillChar, rect.width - (rect.borderWidth * 2), false);
+		clearColors();
 		setTextColor(rect.verticalColor);
 		repeatExtChar(rect.verticalChar, rect.borderWidth, false);
 	}
 
-	setTextColor(rect.cornerColor);
-	repeatExtChar(rect.cornerChars[0], rect.borderWidth, false);
-	setTextColor(rect.horizontalColor);
-	repeatExtChar(rect.horizontalChar, rect.width - (rect.borderWidth * 2), false);
-	setTextColor(rect.cornerColor);
-	repeatExtChar(rect.cornerChars[1], rect.borderWidth, false);
+	for (int i = 0; i < rect.borderWidth; i++) {
+		setTextColor(rect.cornerColor);
+		repeatExtChar(rect.cornerChars[2], rect.borderWidth, false);
+		setTextColor(rect.horizontalColor);
+		repeatExtChar(rect.horizontalChar, rect.width - (rect.borderWidth * 2), false);
+		setTextColor(rect.cornerColor);
+		repeatExtChar(rect.cornerChars[3], rect.borderWidth, false);
+	}
+
+	if (rect.textX != -1) {
+		move(rect.textX, rect.textY);
+		setTextColor(rect.textColor);
+		setBackgroundColor(rect.fillColor);
+		std::cout << rect.text;
+	}
+	clearColors();
 }
 
 void setRectText(
@@ -182,16 +201,16 @@ void setRectText(
 		break;
 	case cGUI::LEFT_CENTER:
 		tX = rect.x + rect.borderWidth + 1 + xOffset;
-		tY = rect.y + 1 + rect.height / 2 + yOffset;
+		tY = rect.y + rect.height / 2 + yOffset;
 		break;
 	case cGUI::CENTER:
 		tX = rect.x + rect.borderWidth + 1 +
 			 (rect.width - text.length()) / 2 + xOffset;
-		tY = rect.y + 1 + rect.height / 2 + yOffset;
+		tY = rect.y + rect.height / 2 + yOffset;
 		break;
 	case cGUI::RIGHT_CENTER:
 		tX = rect.x + rect.width - text.length() + xOffset;
-		tY = rect.y + 1 + rect.height / 2 + yOffset;
+		tY = rect.y + rect.height / 2 + yOffset;
 		break;
 	case cGUI::BOTTOM_LEFT:
 		tX = rect.x + rect.borderWidth + 1 + xOffset;
@@ -200,6 +219,69 @@ void setRectText(
 	case cGUI::BOTTOM_CENTER:
 		tX = rect.x + rect.borderWidth + 1 +
 			 (rect.width - text.length()) / 2 + xOffset;
+		tY = rect.y - rect.borderWidth + rect.height + yOffset;
+		break;
+	case cGUI::BOTTOM_RIGHT:
+		tX = rect.x + rect.width - text.length() + xOffset;
+		tY = rect.y - rect.borderWidth + rect.height + yOffset;
+		break;
+	}
+	rect.textX = tX;
+	rect.textY = tY;
+
+	move(tX, tY);
+	setTextColor(rect.textColor);
+	setBackgroundColor(rect.fillColor);
+	std::cout << text;
+}
+
+void setRectText(
+	cGUI::FancyRectangle& rect, std::string text, cGUI::Handle position,
+	int xOffset, int yOffset
+) {
+	if (rect.x != -1 && rect.textPos == position) {
+		move(rect.textX, rect.textY);
+		std::cout << text;
+		return;
+	}
+
+	rect.text = text;
+	int tX = 0, tY = 0;
+
+	switch (position) {
+	case cGUI::TOP_LEFT:
+		tX = rect.x + rect.borderWidth + 1 + xOffset;
+		tY = rect.y + rect.borderWidth + 1 + yOffset;
+		break;
+	case cGUI::TOP_CENTER:
+		tX = rect.x + rect.borderWidth + 1 +
+			(rect.width - text.length()) / 2 + xOffset;
+		tY = rect.y + rect.borderWidth + 1 + yOffset;
+		break;
+	case cGUI::TOP_RIGHT:
+		tX = rect.x + rect.width - text.length() + xOffset;
+		tY = rect.y + rect.borderWidth + 1 + yOffset;
+		break;
+	case cGUI::LEFT_CENTER:
+		tX = rect.x + rect.borderWidth + 1 + xOffset;
+		tY = rect.y + rect.height / 2 + yOffset;
+		break;
+	case cGUI::CENTER:
+		tX = rect.x + rect.borderWidth + 1 +
+			(rect.width - text.length()) / 2 + xOffset;
+		tY = rect.y + rect.height / 2 + yOffset;
+		break;
+	case cGUI::RIGHT_CENTER:
+		tX = rect.x + rect.width - text.length() + xOffset;
+		tY = rect.y + rect.height / 2 + yOffset;
+		break;
+	case cGUI::BOTTOM_LEFT:
+		tX = rect.x + rect.borderWidth + 1 + xOffset;
+		tY = rect.y + rect.height - rect.borderWidth + yOffset;
+		break;
+	case cGUI::BOTTOM_CENTER:
+		tX = rect.x + rect.borderWidth + 1 +
+			(rect.width - text.length()) / 2 + xOffset;
 		tY = rect.y - rect.borderWidth + rect.height + yOffset;
 		break;
 	case cGUI::BOTTOM_RIGHT:
