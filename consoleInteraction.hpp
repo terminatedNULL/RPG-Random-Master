@@ -50,4 +50,14 @@ void clearColors() {
 	std::cout << "\033[0m";
 }
 
+void repeatChar(char c, int num, bool newline) {
+	for (int i = 0; i < num; i++) { std::cout << c; }
+	if (newline) { std::cout << "\n"; }
+}
+
+void repeatExtChar(int c, int num, bool newline) {
+	for (int i = 0; i < num; i++) { std::cout << (char)c; }
+	if (newline) { std::cout << "\n"; }
+}
+
 #endif

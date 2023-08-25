@@ -29,7 +29,7 @@ namespace cGUI {
 		int x, y;
 		int width, height;
 		int borderWidth;
-		char cornerChars[4];
+		int *cornerChars;
 		char horizontalChar;
 		char verticalChar;
 		char fillChar;
@@ -39,7 +39,8 @@ namespace cGUI {
 		RGB fillColor;
 		RGB textColor;
 		std::string text;
-		int textPos;
+		enum Handle textPos;
+		int textX, textY;
 	};
 
 	enum Handle {
