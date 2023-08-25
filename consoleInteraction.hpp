@@ -38,7 +38,7 @@ void setTextColor(cGUI::RGB color) {
 }
 
 void setBackgroundColor(cGUI::RGB color) {
-	std::cout << ("\033[38;2;" +
+	std::cout << ("\033[48;2;" +
 		to_string(color.r) + ";" +
 		to_string(color.g) + ";" +
 		to_string(color.b) + "m");

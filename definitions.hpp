@@ -22,6 +22,7 @@ namespace cGUI {
 		RGB textColor;
 		std::string text;
 		enum Handle textPos;
+		int textX, textY;
 	};
 
 	struct FancyRectangle {
@@ -42,6 +43,7 @@ namespace cGUI {
 	};
 
 	enum Handle {
+		NO_HANDLE,
 		TOP_LEFT,
 		TOP_CENTER,
 		TOP_RIGHT,
