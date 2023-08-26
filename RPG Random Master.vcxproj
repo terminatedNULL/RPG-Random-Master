@@ -133,6 +133,7 @@
     <ClInclude Include="consoleGUI.hpp" />
     <ClInclude Include="definitions.hpp" />
     <ClInclude Include="globals.hpp" />
+    <ClInclude Include="objectInteraction.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="consoleInteraction.hpp" />

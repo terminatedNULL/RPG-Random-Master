@@ -3,16 +3,24 @@
 
 #include <iostream>
 #include <string>
+#include <conio.h>
+#include <vector>
+#include <thread>
 
 namespace cGUI {
 
-	int singleCorners[] = { 218, 191, 192, 127 };
+	int singleCorners[] = { 218, 191, 192, 217 };
 	int doubleCorners[] = { 201, 187, 200, 188 };
 
 	struct RGB {
 		int r;
 		int g;
 		int b;
+	};
+
+	struct Position {
+		int x;
+		int y;
 	};
 
 	struct Rectangle {
@@ -45,6 +53,8 @@ namespace cGUI {
 		std::string text;
 		enum Handle textPos;
 		int textX, textY;
+
+		void hover();
 	};
 
 	enum Handle {
@@ -59,6 +69,14 @@ namespace cGUI {
 		BOTTOM_CENTER,
 		BOTTOM_RIGHT
 	};
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// FUNCTION IMPLEMENTATIONS
+//////////////////////////////////////////////////////////////////////////////
+
+void cGUI::FancyRectangle::hover() {
+	std::cout << "LETS GOO";
 }
 
 #endif

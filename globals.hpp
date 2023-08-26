@@ -9,4 +9,7 @@ struct cGUI::RGB currTextCol = { 255, 255, 255 };
 struct cGUI::RGB currBackCol = { 0, 0, 0 };
 const struct cGUI::RGB BLANK_RGB = { -1, -1, -1 };
 
+std::vector<struct cGUI::Rectangle*> rectObjects;
+std::vector<struct cGUI::FancyRectangle*> fancyRectObjects;
+
 #endif
