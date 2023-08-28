@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <iostream>
 #include <string>
+#include <mutex>
 
 #include "globals.hpp"
 #include "definitions.hpp"
@@ -45,7 +46,14 @@ RECT getScreenSize() {
 	return desktop;
 }
 
-struct cGUI::Position getMousePos(int width, int height) {
+void move(int x, int y, bool reset = false) {
+	std::cout << ("\033[" + to_string(y) + ";" + to_string(x) + "H");
+	if(reset) { 
+		std::cout << ("\033[" + to_string(y) + ";" + to_string(x) + "H");
+	}
+}
+
+cGUI::Position handleMousePos(int width, int height) {
 	POINT mousePos;
 	cGUI::Position pos;
 
@@ -57,13 +65,6 @@ struct cGUI::Position getMousePos(int width, int height) {
 	pos.y = pixelToConsole((int)mousePos.y, 0, screen.bottom, 0, height);
 
 	return pos;
-}
-
-void move(int x, int y, bool reset = false) {
-	std::cout << ("\033[" + to_string(y) + ";" + to_string(x) + "H");
-	if(reset) { 
-		std::cout << ("\033[" + to_string(y) + ";" + to_string(x) + "H");
-	}
 }
 
 void setTextColor(cGUI::RGB color) {

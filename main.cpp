@@ -22,9 +22,10 @@ int main() {
 	addRect(&titleBar);
 	 
 	while (true) {
-		cGUI::Position mousePos = getMousePos(width, height);
+		cGUI::Position mousePos = handleMousePos(width, height);
 		handleRectMouse(mousePos);
 
+		if (!_kbhit()) { continue; }
 		char input = _getch();
 
 		switch (input) {
