@@ -134,39 +134,45 @@ void drawRectangle(cGUI::FancyRectangle& rect) {
 	clearColors();
 	move(rect.x, rect.y);
 
+	cGUI::RGB cornerColor = rect.cornerColor + rect.colorMod;
+	cGUI::RGB horizontalColor = rect.horizontalColor + rect.colorMod;
+	cGUI::RGB verticalColor = rect.verticalColor + rect.colorMod;
+	cGUI::RGB fillColor = rect.fillColor + rect.colorMod;
+	cGUI::RGB textColor = rect.textColor + rect.colorMod;
+
 	for (int i = 0; i < rect.borderWidth; i++) {
-		setTextColor(rect.cornerColor);
+		setTextColor(cornerColor);
 		repeatExtChar(rect.cornerChars[0], rect.borderWidth, false);
-		setTextColor(rect.horizontalColor);
+		setTextColor(horizontalColor);
 		repeatExtChar(rect.horizontalChar, rect.width - (rect.borderWidth * 2), false);
-		setTextColor(rect.cornerColor);
+		setTextColor(cornerColor);
 		repeatExtChar(rect.cornerChars[1], rect.borderWidth, false);
 	}
 
 	for (int i = 0; i < rect.height - (rect.borderWidth * 2); i++) {
-		setTextColor(rect.verticalColor);
+		setTextColor(verticalColor);
 		repeatExtChar(rect.verticalChar, rect.borderWidth, false);
-		if (rect.fillChar == ' ') { setBackgroundColor(rect.fillColor); }
-		else { setTextColor(rect.fillColor); }
+		if (rect.fillChar == ' ') { setBackgroundColor(fillColor); }
+		else { setTextColor(fillColor); }
 		repeatExtChar(rect.fillChar, rect.width - (rect.borderWidth * 2), false);
 		clearColors();
-		setTextColor(rect.verticalColor);
+		setTextColor(verticalColor);
 		repeatExtChar(rect.verticalChar, rect.borderWidth, false);
 	}
 
 	for (int i = 0; i < rect.borderWidth; i++) {
-		setTextColor(rect.cornerColor);
+		setTextColor(cornerColor);
 		repeatExtChar(rect.cornerChars[2], rect.borderWidth, false);
-		setTextColor(rect.horizontalColor);
+		setTextColor(horizontalColor);
 		repeatExtChar(rect.horizontalChar, rect.width - (rect.borderWidth * 2), false);
-		setTextColor(rect.cornerColor);
+		setTextColor(cornerColor);
 		repeatExtChar(rect.cornerChars[3], rect.borderWidth, false);
 	}
 
 	if (rect.textX != -1) {
 		move(rect.textX, rect.textY);
-		setTextColor(rect.textColor);
-		setBackgroundColor(rect.fillColor);
+		setTextColor(textColor);
+		setBackgroundColor(fillColor);
 		std::cout << rect.text;
 	}
 	clearColors();
@@ -318,6 +324,33 @@ void setRectColor(
 	if (vertCol.r != -1) { rect.verticalColor = vertCol; }
 	if (fillCol.r != -1) { rect.fillColor = fillCol; }
 	if (textCol.r != -1) { rect.textColor = textCol; }
+	drawRectangle(rect);
+}
+
+void setRectState(cGUI::Rectangle& rect, int state) {
+
+}
+
+void setRectState(cGUI::FancyRectangle& rect, int state) {
+	if (rect.state == state) { return; }
+
+	rect.state = state;
+	//Set rect colors based on state
+	switch (rect.state) {
+	case cGUI::DISABLED:
+		rect.colorMod = -50;
+		break;
+	case cGUI::IDLE:
+		rect.colorMod = 0;
+		break;
+	case cGUI::HOVER:
+		rect.colorMod = 50;
+		break;
+	case cGUI::CLICK:
+		rect.colorMod = 100;
+		break;
+	}
+
 	drawRectangle(rect);
 }
 

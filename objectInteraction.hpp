@@ -2,6 +2,7 @@
 #define OBJECT_INTERACTION_HPP
 
 #include "definitions.hpp"
+#include "consoleGUI.hpp"
 #include "globals.hpp"
 
 void addRect(cGUI::Rectangle *rect) {
@@ -20,7 +21,13 @@ void handleRectMouse(cGUI::Position mousePos) {
 		if (
 			boundsCheck(mousePos, rect->x, rect->y, rect->width, rect->height)
 		) {
-			rect->hover();
+			setRectState(*rect, cGUI::HOVER);
+			move(50, 50);
+			std::cout << rect->colorMod;
+		} else {
+			setRectState(*rect, cGUI::CLICK);
+			move(50, 50);
+			std::cout << rect->colorMod;
 		}
 	}
 }

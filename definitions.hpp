@@ -12,10 +12,55 @@ namespace cGUI {
 	int singleCorners[] = { 218, 191, 192, 217 };
 	int doubleCorners[] = { 201, 187, 200, 188 };
 
+	enum {
+		DISABLED = 0,
+		IDLE,
+		HOVER,
+		CLICK
+	};
+
 	struct RGB {
 		int r;
 		int g;
 		int b;
+
+		RGB& operator +(const RGB& col) {
+			(r + col.r) <= 255 ? r += col.r : r = 255;
+			(g + col.g) <= 255 ? g += col.g : g = 255;
+			(b + col.b) <= 255 ? b += col.b : b = 255;
+			return *this;
+		}
+		RGB& operator -(const RGB& col) {
+			(r - col.r) >= 0 ? r -= col.r : r = 0;
+			(g - col.g) >= 0 ? g -= col.g : g = 0;
+			(b - col.b) >= 0 ? b -= col.b : b = 0;
+			return *this;
+		}
+		RGB& operator +(const int i) {
+			(r + i) <= 255 ? r += i : r = 255;
+			(g + i) <= 255 ? g += i : g = 255;
+			(b + i) <= 255 ? b += i : b = 255;
+			return *this;
+		}
+		RGB& operator -(const int i) {
+			(r - i) >= 0 ? r -= i : r = 0;
+			(g - i) >= 0 ? g -= i : g = 0;
+			(b - i) >= 0 ? b -= i : b = 0;
+			return *this;
+		}
+		RGB& operator *(const int i) {
+			(r * i) <= 255 ? r *= i : r = 255;
+			(g * i) <= 255 ? g *= i : g = 255;
+			(b * i) <= 255 ? b *= i : b = 255;
+			return *this;
+		}
+		RGB& operator /(const int i) {
+			if (i == 0) { return *this; }
+			(r / i) <= 255 ? r /= i : r = 255;
+			(g / i) <= 255 ? g /= i : g = 255;
+			(b / i) <= 255 ? b /= i : b = 255;
+			return *this;
+		}
 	};
 
 	struct Position {
@@ -27,38 +72,48 @@ namespace cGUI {
 		int x, y;
 		int width, height;
 		int borderWidth;
+
 		char borderChar;
 		char fillChar;
+
 		RGB borderColor;
 		RGB fillColor;
 		RGB textColor;
+
 		std::string text;
 		enum Handle textPos;
 		int textX, textY;
+
+		int state = IDLE;
 	};
 
 	struct FancyRectangle {
 		int x, y;
 		int width, height;
 		int borderWidth;
+
 		int *cornerChars;
 		char horizontalChar;
 		char verticalChar;
 		char fillChar;
+
 		RGB cornerColor;
 		RGB horizontalColor;
 		RGB verticalColor;
 		RGB fillColor;
 		RGB textColor;
+
 		std::string text;
 		enum Handle textPos;
 		int textX, textY;
 
-		void hover();
+		int state = IDLE;
+		bool radio = false;
+		int colorMod = 0;
 	};
 
 	enum Handle {
-		NO_HANDLE,
+		NO_HANDLE = 0,
 		TOP_LEFT,
 		TOP_CENTER,
 		TOP_RIGHT,
@@ -69,14 +124,6 @@ namespace cGUI {
 		BOTTOM_CENTER,
 		BOTTOM_RIGHT
 	};
-}
-
-//////////////////////////////////////////////////////////////////////////////
-// FUNCTION IMPLEMENTATIONS
-//////////////////////////////////////////////////////////////////////////////
-
-void cGUI::FancyRectangle::hover() {
-	std::cout << "LETS GOO";
 }
 
 #endif
