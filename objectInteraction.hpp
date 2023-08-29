@@ -25,7 +25,7 @@ void handleRectMouse(cGUI::Position mousePos) {
 			move(50, 50);
 			std::cout << rect->colorMod;
 		} else {
-			setRectState(*rect, cGUI::CLICK);
+			setRectState(*rect, cGUI::IDLE);
 			move(50, 50);
 			std::cout << rect->colorMod;
 		}

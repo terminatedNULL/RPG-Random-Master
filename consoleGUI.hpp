@@ -134,11 +134,16 @@ void drawRectangle(cGUI::FancyRectangle& rect) {
 	clearColors();
 	move(rect.x, rect.y);
 
-	cGUI::RGB cornerColor = rect.cornerColor + rect.colorMod;
-	cGUI::RGB horizontalColor = rect.horizontalColor + rect.colorMod;
-	cGUI::RGB verticalColor = rect.verticalColor + rect.colorMod;
-	cGUI::RGB fillColor = rect.fillColor + rect.colorMod;
-	cGUI::RGB textColor = rect.textColor + rect.colorMod;
+	cGUI::RGB cornerColor = rect.cornerColor;
+	cornerColor + rect.colorMod;
+	cGUI::RGB horizontalColor = rect.horizontalColor;
+	horizontalColor + rect.colorMod;
+	cGUI::RGB verticalColor = rect.verticalColor;
+	verticalColor + rect.colorMod;
+	cGUI::RGB fillColor = rect.fillColor;
+	fillColor + rect.colorMod;
+	cGUI::RGB textColor = rect.textColor;
+	textColor + rect.colorMod;
 
 	for (int i = 0; i < rect.borderWidth; i++) {
 		setTextColor(cornerColor);
@@ -338,16 +343,16 @@ void setRectState(cGUI::FancyRectangle& rect, int state) {
 	//Set rect colors based on state
 	switch (rect.state) {
 	case cGUI::DISABLED:
-		rect.colorMod = -50;
+		rect.colorMod = -25;
 		break;
 	case cGUI::IDLE:
 		rect.colorMod = 0;
 		break;
 	case cGUI::HOVER:
-		rect.colorMod = 50;
+		rect.colorMod = 25;
 		break;
 	case cGUI::CLICK:
-		rect.colorMod = 100;
+		rect.colorMod = 50;
 		break;
 	}
 
