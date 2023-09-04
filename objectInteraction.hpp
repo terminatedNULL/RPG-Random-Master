@@ -15,19 +15,32 @@ void addRect(cGUI::FancyRectangle* rect) {
 
 void handleRectMouse(cGUI::Position mousePos) {
 	for (cGUI::Rectangle* rect : rectObjects) {
-		
+		if (
+			boundsCheck(mousePos, rect->x, rect->y, rect->width, rect->height)
+			) {
+			if (mouseDown()) {
+				setRectState(*rect, cGUI::CLICK);
+			}
+			else {
+				setRectState(*rect, cGUI::HOVER);
+			}
+		}
+		else {
+			setRectState(*rect, cGUI::IDLE);
+		}
 	}
 	for (cGUI::FancyRectangle* rect : fancyRectObjects) {
 		if (
 			boundsCheck(mousePos, rect->x, rect->y, rect->width, rect->height)
 		) {
-			setRectState(*rect, cGUI::HOVER);
-			move(50, 50);
-			std::cout << rect->colorMod;
+			if (mouseDown()) {
+				setRectState(*rect, cGUI::CLICK);
+			}
+			else {
+				setRectState(*rect, cGUI::HOVER);
+			}
 		} else {
 			setRectState(*rect, cGUI::IDLE);
-			move(50, 50);
-			std::cout << rect->colorMod;
 		}
 	}
 }

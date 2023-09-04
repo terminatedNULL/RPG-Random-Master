@@ -17,6 +17,11 @@ void setRGB(cGUI::RGB& obj, int r, int g, int b) {
 	obj.b = b;
 }
 
+bool mouseDown() {
+	if ((GetKeyState(VK_LBUTTON) & 0x8000) != 0) { return true; }
+	return false;
+}
+
 bool boundsCheck(cGUI::Position pos, int x, int y, int width, int height) {
 	if (
 		(pos.x >= x && pos.x <= x - 2 + width)

@@ -19,6 +19,12 @@ namespace cGUI {
 		CLICK
 	};
 
+	enum {
+		INNER_COLOR,
+		OUTER_COLOR,
+		MOD_COLORS
+	};
+
 	struct RGB {
 		int r;
 		int g;
@@ -63,6 +69,8 @@ namespace cGUI {
 		}
 	};
 
+	RGB BLANK_RGB = { 0, 0, 0 };
+
 	struct Position {
 		int x;
 		int y;
@@ -80,11 +88,18 @@ namespace cGUI {
 		RGB fillColor;
 		RGB textColor;
 
+		RGB disableColor;
+		RGB hoverColor;
+		RGB clickColor;
+
 		std::string text;
 		enum Handle textPos;
 		int textX, textY;
 
 		int state = IDLE;
+		int colorType = INNER_COLOR;
+		int colorMod = 0;
+		bool radio = false;
 	};
 
 	struct FancyRectangle {
@@ -103,13 +118,18 @@ namespace cGUI {
 		RGB fillColor;
 		RGB textColor;
 
+		RGB disableColor;
+		RGB hoverColor;
+		RGB clickColor;
+
 		std::string text;
 		enum Handle textPos;
 		int textX, textY;
 
 		int state = IDLE;
-		bool radio = false;
+		int colorType = INNER_COLOR;
 		int colorMod = 0;
+		bool radio = false;
 	};
 
 	enum Handle {

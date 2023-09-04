@@ -66,6 +66,7 @@ cGUI::Rectangle createRectangle(
 		currTextCol,
 		currBackCol,
 		{ 255, 255, 255 },
+		BLANK_RGB, BLANK_RGB, BLANK_RGB,
 		"", cGUI::NO_HANDLE,
 		-1, -1
 	};
@@ -88,9 +89,9 @@ cGUI::FancyRectangle createFancyRectangle(
 		borderWidth, cornerChars,
 		horizontalChar, verticalChar, fillChar,
 		{ 255, 255, 255 }, { 255, 255, 255 }, { 255, 255, 255 },
-		{ 0, 0, 0 }, { 255, 255, 255 },
-		"", cGUI::NO_HANDLE,
-		-1, -1
+		{ 0, 0, 0 }, { 255, 255, 255 }, 
+		BLANK_RGB, BLANK_RGB, BLANK_RGB,
+		"", cGUI::NO_HANDLE, -1, -1
 	};
 
 	drawRectangle(rect);
@@ -343,20 +344,29 @@ void setRectState(cGUI::FancyRectangle& rect, int state) {
 	//Set rect colors based on state
 	switch (rect.state) {
 	case cGUI::DISABLED:
-		rect.colorMod = -25;
+		rect.colorMod = -50;
 		break;
 	case cGUI::IDLE:
 		rect.colorMod = 0;
 		break;
 	case cGUI::HOVER:
-		rect.colorMod = 25;
+		rect.colorMod = 50;
 		break;
 	case cGUI::CLICK:
-		rect.colorMod = 50;
+		rect.colorMod = 100;
 		break;
 	}
 
 	drawRectangle(rect);
+}
+
+void setInteractionColors(
+	cGUI::FancyRectangle& rect,
+	cGUI::RGB disable, cGUI::RGB hover, cGUI::RGB click
+) {
+	rect.disableColor = disable;
+	rect.hoverColor = hover;
+	rect.clickColor = click;
 }
 
 void line(int x1, int y1, int x2, int y2, bool reset) {
