@@ -6,6 +6,7 @@
 #include <conio.h>
 #include <vector>
 #include <thread>
+#include <math.h>
 
 namespace cGUI {
 

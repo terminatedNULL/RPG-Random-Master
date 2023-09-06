@@ -153,9 +153,11 @@ void drawRectangle(cGUI::FancyRectangle& rect) {
 		repeatExtChar(rect.horizontalChar, rect.width - (rect.borderWidth * 2), false);
 		setTextColor(cornerColor);
 		repeatExtChar(rect.cornerChars[1], rect.borderWidth, false);
+		std::cout << "\n";
 	}
 
 	for (int i = 0; i < rect.height - (rect.borderWidth * 2); i++) {
+		move(rect.x, rect.y + i + 1);
 		setTextColor(verticalColor);
 		repeatExtChar(rect.verticalChar, rect.borderWidth, false);
 		if (rect.fillChar == ' ') { setBackgroundColor(fillColor); }
@@ -167,12 +169,13 @@ void drawRectangle(cGUI::FancyRectangle& rect) {
 	}
 
 	for (int i = 0; i < rect.borderWidth; i++) {
+		move(rect.x, rect.y + rect.height - 1);
 		setTextColor(cornerColor);
 		repeatExtChar(rect.cornerChars[2], rect.borderWidth, false);
 		setTextColor(horizontalColor);
 		repeatExtChar(rect.horizontalChar, rect.width - (rect.borderWidth * 2), false);
 		setTextColor(cornerColor);
-		repeatExtChar(rect.cornerChars[3], rect.borderWidth, false);
+		repeatExtChar(rect.cornerChars[3], rect.borderWidth, false); \
 	}
 
 	if (rect.textX != -1) {
