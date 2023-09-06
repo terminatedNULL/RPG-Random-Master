@@ -21,6 +21,9 @@ void handleRectMouse(cGUI::Position mousePos) {
 			if (rect->state == cGUI::DISABLED) { continue; }
 			if (mouseDown()) {
 				setRectState(*rect, cGUI::CLICK);
+				if (rect->radio) {
+					rect->radioSelect = !rect->radioSelect;
+				}
 			}
 			else {
 				setRectState(*rect, cGUI::HOVER);
@@ -28,23 +31,38 @@ void handleRectMouse(cGUI::Position mousePos) {
 		}
 		else {
 			if (rect->state == cGUI::DISABLED) { continue; }
-			setRectState(*rect, cGUI::IDLE);
+			if (rect->radio && rect->radioSelect) {
+				setRectState(*rect, cGUI::HOVER);
+			}
+			else {
+				setRectState(*rect, cGUI::IDLE);
+			}
 		}
 	}
+
 	for (cGUI::FancyRectangle* rect : fancyRectObjects) {
 		if (
 			boundsCheck(mousePos, rect->x, rect->y, rect->width, rect->height)
-		) {
+			) {
 			if (rect->state == cGUI::DISABLED) { continue; }
 			if (mouseDown()) {
 				setRectState(*rect, cGUI::CLICK);
+				if (rect->radio) {
+					rect->radioSelect = !rect->radioSelect;
+				}
 			}
 			else {
 				setRectState(*rect, cGUI::HOVER);
 			}
-		} else {
+		}
+		else {
 			if (rect->state == cGUI::DISABLED) { continue; }
-			setRectState(*rect, cGUI::IDLE);
+			if (rect->radio && rect->radioSelect) {
+				setRectState(*rect, cGUI::HOVER);
+			}
+			else {
+				setRectState(*rect, cGUI::IDLE);
+			}
 		}
 	}
 }

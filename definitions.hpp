@@ -101,6 +101,7 @@ namespace cGUI {
 		int colorType = INNER_COLOR;
 		int colorMod = 0;
 		bool radio = false;
+		bool radioSelect = false;
 	};
 
 	struct FancyRectangle {
@@ -131,6 +132,7 @@ namespace cGUI {
 		int colorType = INNER_COLOR;
 		int colorMod = 0;
 		bool radio = false;
+		bool radioSelect = false;
 	};
 
 	enum Handle {

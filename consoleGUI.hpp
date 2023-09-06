@@ -372,6 +372,16 @@ void setInteractionColors(
 	rect.clickColor = click;
 }
 
+void setRadio(cGUI::Rectangle& rect, bool state) {
+	rect.radio = state;
+	drawRectangle(rect);
+}
+
+void setRadio(cGUI::FancyRectangle& rect, bool state) {
+	rect.radio = state;
+	drawRectangle(rect);
+}
+
 void line(int x1, int y1, int x2, int y2, bool reset) {
 	//Implement closest line algorithm
 }
