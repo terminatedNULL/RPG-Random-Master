@@ -16,8 +16,7 @@ namespace cGUI {
 		DISABLED = 0,
 		IDLE,
 		HOVER,
-		CLICK,
-		STATIC
+		CLICK
 	};
 
 	enum {
@@ -97,7 +96,7 @@ namespace cGUI {
 		enum Handle textPos;
 		int textX, textY;
 
-		int state = IDLE;
+		int state;
 		int colorType = INNER_COLOR;
 		int colorMod = 0;
 		bool radio = false;
@@ -127,7 +126,7 @@ namespace cGUI {
 		enum Handle textPos;
 		int textX, textY;
 
-		int state = IDLE;
+		int state;
 		int colorType = INNER_COLOR;
 		int colorMod = 0;
 		bool radio = false;

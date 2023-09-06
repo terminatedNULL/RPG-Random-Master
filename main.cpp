@@ -15,17 +15,19 @@ int main() {
 	int width, height;
 	terminalSize(width, height); 
 
+	SetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), ENABLE_EXTENDED_FLAGS);
+
 	cGUI::FancyRectangle titleBar = createFancyRectangle(
-		1, 1, width, 5, 1, cGUI::doubleCorners, 205, 186
+		1, 1, width, 5, 1, cGUI::doubleCorners, 205, 186, 32, cGUI::DISABLED
 	);
 	setRectText(titleBar, "< RPG Random Master >", cGUI::CENTER);
-	//titleBar.colorType = cGUI::INNER_COLOR;
+	/*
+	titleBar.colorType = cGUI::INNER_COLOR;
 	setInteractionColors(
 		titleBar, { 25, 25, 25 }, { 50, 50, 50 }, { 255, 255, 255 }
 	);
+	*/
 	addRect(&titleBar);
-
-	//try switching printing to use fwrite() for SPEED
 	 
 	while (true) {
 		cGUI::Position mousePos = handleMousePos(width, height);

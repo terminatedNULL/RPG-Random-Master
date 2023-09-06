@@ -15,7 +15,7 @@ cGUI::Rectangle createRectangle(
 	int x, int y,
 	int width, int height,
 	int borderWidth = 1, char borderChar = '#',
-	bool fill = false, char fillChar = ' '
+	bool fill = false, char fillChar = ' ', int state = cGUI::IDLE
 );
 int cornerDefault[4] = { 254, 254, 254, 254 };
 cGUI::FancyRectangle createFancyRectangle(
@@ -24,7 +24,7 @@ cGUI::FancyRectangle createFancyRectangle(
 	int borderWidth = 1,
 	int cornerChars[4] = cornerDefault,
 	char horizontalChar = '-', char verticalChar = '|',
-	char fillChar = 32
+	char fillChar = 32, int state = cGUI::IDLE
 );
 void drawRectangle(cGUI::Rectangle& rect);
 void drawRectangle(cGUI::FancyRectangle& rect);
@@ -55,7 +55,7 @@ cGUI::Rectangle createRectangle(
 	int x, int y, 
 	int width, int height, 
 	int borderWidth, char borderChar, 
-	bool fill, char fillChar
+	bool fill, char fillChar, int state
 ) {
 	cGUI::Rectangle rect = {
 		x, y,
@@ -66,9 +66,9 @@ cGUI::Rectangle createRectangle(
 		currTextCol,
 		currBackCol,
 		{ 255, 255, 255 },
-		BLANK_RGB, BLANK_RGB, BLANK_RGB,
+		BLANK_RGB, BLANK_RGB, BLANK_RGB, 
 		"", cGUI::NO_HANDLE,
-		-1, -1
+		-1, -1, state
 	};
 
 	drawRectangle(rect);
@@ -81,7 +81,7 @@ cGUI::FancyRectangle createFancyRectangle(
 	int borderWidth,
 	int cornerChars[4],
 	char horizontalChar, char verticalChar,
-	char fillChar
+	char fillChar, int state
 ) {
 	cGUI::FancyRectangle rect = {
 		x, y, 
@@ -89,9 +89,9 @@ cGUI::FancyRectangle createFancyRectangle(
 		borderWidth, cornerChars,
 		horizontalChar, verticalChar, fillChar,
 		{ 255, 255, 255 }, { 255, 255, 255 }, { 255, 255, 255 },
-		{ 0, 0, 0 }, { 255, 255, 255 }, 
+		{ 0, 0, 0 }, { 255, 255, 255 },
 		BLANK_RGB, BLANK_RGB, BLANK_RGB,
-		"", cGUI::NO_HANDLE, -1, -1
+		"", cGUI::NO_HANDLE, -1, -1, state
 	};
 
 	drawRectangle(rect);

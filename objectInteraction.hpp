@@ -18,9 +18,7 @@ void handleRectMouse(cGUI::Position mousePos) {
 		if (
 			boundsCheck(mousePos, rect->x, rect->y, rect->width, rect->height)
 		) {
-			if (rect->state == cGUI::DISABLED || rect->state == cGUI::STATIC) {
-				break;
-			}
+			if (rect->state == cGUI::DISABLED) { continue; }
 			if (mouseDown()) {
 				setRectState(*rect, cGUI::CLICK);
 			}
@@ -29,6 +27,7 @@ void handleRectMouse(cGUI::Position mousePos) {
 			}
 		}
 		else {
+			if (rect->state == cGUI::DISABLED) { continue; }
 			setRectState(*rect, cGUI::IDLE);
 		}
 	}
@@ -36,9 +35,7 @@ void handleRectMouse(cGUI::Position mousePos) {
 		if (
 			boundsCheck(mousePos, rect->x, rect->y, rect->width, rect->height)
 		) {
-			if (rect->state == cGUI::DISABLED || rect->state == cGUI::STATIC) {
-				break;
-			}
+			if (rect->state == cGUI::DISABLED) { continue; }
 			if (mouseDown()) {
 				setRectState(*rect, cGUI::CLICK);
 			}
@@ -46,6 +43,7 @@ void handleRectMouse(cGUI::Position mousePos) {
 				setRectState(*rect, cGUI::HOVER);
 			}
 		} else {
+			if (rect->state == cGUI::DISABLED) { continue; }
 			setRectState(*rect, cGUI::IDLE);
 		}
 	}
