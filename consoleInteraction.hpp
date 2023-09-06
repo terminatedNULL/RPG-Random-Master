@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <iostream>
 #include <string>
-#include <mutex>
+#include <algorithm>
 
 #include "globals.hpp"
 #include "definitions.hpp"
@@ -52,9 +52,11 @@ RECT getScreenSize() {
 }
 
 void move(int x, int y, bool reset = false) {
-	std::cout << ("\033[" + to_string(y) + ";" + to_string(x) + "H");
+	std::string s = ("\033[" + to_string(y) + ";" + to_string(x) + "H");
+	fwrite(s.c_str(), sizeof(char), s.length(), stdout);
 	if(reset) { 
-		std::cout << ("\033[" + to_string(y) + ";" + to_string(x) + "H");
+		s = ("\033[" + to_string(y) + ";" + to_string(x) + "H");
+		fwrite(s.c_str(), sizeof(char), s.length(), stdout);
 	}
 }
 
@@ -73,32 +75,40 @@ cGUI::Position handleMousePos(int width, int height) {
 }
 
 void setTextColor(cGUI::RGB color) {
-	std::cout << ("\033[38;2;" + 
+	std::string s = ("\033[38;2;" + 
 				  to_string(color.r) + ";" + 
 				  to_string(color.g) + ";" +
 				  to_string(color.b) + "m");
+	fwrite(s.c_str(), sizeof(char), s.length(), stdout);
 }
 
 void setBackgroundColor(cGUI::RGB color) {
-	std::cout << ("\033[48;2;" +
+	std::string s = ("\033[48;2;" +
 		to_string(color.r) + ";" +
 		to_string(color.g) + ";" +
 		to_string(color.b) + "m");
+	fwrite(s.c_str(), sizeof(char), s.length(), stdout);
 }
 
 void clearColors() {
 	setRGB(currTextCol, 255, 255, 255);
 	setRGB(currBackCol, 0, 0, 0);
-	std::cout << "\033[0m";
+	std::string s = "\033[0m";
+	fwrite(s.c_str(), sizeof(char), s.length(), stdout);
 }
 
 void repeatChar(char c, int num, bool newline) {
-	for (int i = 0; i < num; i++) { std::cout << c; }
+	char cArray[1000];
+	std::fill_n(cArray, num, c);
+	fwrite(cArray, sizeof(char), num, stdout);
 	if (newline) { std::cout << "\n"; }
 }
 
 void repeatExtChar(int c, int num, bool newline) {
-	for (int i = 0; i < num; i++) { std::cout << (char)c; }
+	char cArray[1000];
+	char intChar = (char)c;
+	std::fill_n(cArray, num, intChar);
+	fwrite(cArray, sizeof(char), num, stdout);
 	if (newline) { std::cout << "\n"; }
 }
 

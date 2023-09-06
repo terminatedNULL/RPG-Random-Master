@@ -17,7 +17,10 @@ void handleRectMouse(cGUI::Position mousePos) {
 	for (cGUI::Rectangle* rect : rectObjects) {
 		if (
 			boundsCheck(mousePos, rect->x, rect->y, rect->width, rect->height)
-			) {
+		) {
+			if (rect->state == cGUI::DISABLED || rect->state == cGUI::STATIC) {
+				break;
+			}
 			if (mouseDown()) {
 				setRectState(*rect, cGUI::CLICK);
 			}
@@ -33,6 +36,9 @@ void handleRectMouse(cGUI::Position mousePos) {
 		if (
 			boundsCheck(mousePos, rect->x, rect->y, rect->width, rect->height)
 		) {
+			if (rect->state == cGUI::DISABLED || rect->state == cGUI::STATIC) {
+				break;
+			}
 			if (mouseDown()) {
 				setRectState(*rect, cGUI::CLICK);
 			}

@@ -16,7 +16,8 @@ namespace cGUI {
 		DISABLED = 0,
 		IDLE,
 		HOVER,
-		CLICK
+		CLICK,
+		STATIC
 	};
 
 	enum {
