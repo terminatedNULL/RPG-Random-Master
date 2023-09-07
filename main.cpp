@@ -23,19 +23,19 @@ int main() {
 
 	cGUI::FancyRectangle sideBar = createFancyRectangle(
 		1, 5, width * .2, height - 6, 1, cGUI::doubleCorners, 205, 186, 32,
-		cGUI::DISABLED
+		cGUI::RECT
 	);
 	addRect(&sideBar);
 
 	cGUI::FancyRectangle editorWind = createFancyRectangle(
 		width * .2 + 1, 5, ceil(width * .5), height - 6, 1, cGUI::doubleCorners,
-		205, 186, 32, cGUI::DISABLED
+		205, 186, 32, cGUI::RECT
 	);
 	addRect(&editorWind);
 
 	cGUI::FancyRectangle visualWind = createFancyRectangle(
 		ceil(width * .7) + 1, 5, width * .3, height - 6, 1, cGUI::doubleCorners,
-		205, 186, 32, cGUI::DISABLED
+		205, 186, 32, cGUI::RECT
 	);
 	addRect(&visualWind);
 	 

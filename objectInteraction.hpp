@@ -18,7 +18,7 @@ void handleRectMouse(cGUI::Position mousePos) {
 		if (
 			boundsCheck(mousePos, rect->x, rect->y, rect->width, rect->height)
 		) {
-			if (rect->state == cGUI::DISABLED) { continue; }
+			if (rect->state == cGUI::DISABLED || rect->state == cGUI::RECT) { continue; }
 			if (mouseDown()) {
 				setRectState(*rect, cGUI::CLICK);
 				if (rect->radio) {
@@ -30,7 +30,7 @@ void handleRectMouse(cGUI::Position mousePos) {
 			}
 		}
 		else {
-			if (rect->state == cGUI::DISABLED) { continue; }
+			if (rect->state == cGUI::DISABLED || rect->state == cGUI::RECT) { continue; }
 			if (rect->radio && rect->radioSelect) {
 				setRectState(*rect, cGUI::HOVER);
 			}
@@ -44,7 +44,7 @@ void handleRectMouse(cGUI::Position mousePos) {
 		if (
 			boundsCheck(mousePos, rect->x, rect->y, rect->width, rect->height)
 			) {
-			if (rect->state == cGUI::DISABLED) { continue; }
+			if (rect->state == cGUI::DISABLED || rect->state == cGUI::RECT) { continue; }
 			if (mouseDown()) {
 				setRectState(*rect, cGUI::CLICK);
 				if (rect->radio) {
@@ -56,7 +56,7 @@ void handleRectMouse(cGUI::Position mousePos) {
 			}
 		}
 		else {
-			if (rect->state == cGUI::DISABLED) { continue; }
+			if (rect->state == cGUI::DISABLED || rect->state == cGUI::RECT) { continue; }
 			if (rect->radio && rect->radioSelect) {
 				setRectState(*rect, cGUI::HOVER);
 			}
