@@ -19,12 +19,6 @@ int main() {
 		1, 1, width, 5, 1, cGUI::doubleCorners, 205, 186, 32, cGUI::DISABLED
 	);
 	setRectText(titleBar, "< RPG Random Master >", cGUI::LEFT_CENTER, 1);
-	/*
-	titleBar.colorType = cGUI::INNER_COLOR;
-	setInteractionColors(
-		titleBar, { 25, 25, 25 }, { 50, 50, 50 }, { 255, 255, 255 }
-	);
-	*/
 	addRect(&titleBar);
 
 	cGUI::FancyRectangle sideBar = createFancyRectangle(

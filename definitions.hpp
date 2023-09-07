@@ -23,7 +23,7 @@ namespace cGUI {
 	enum {
 		INNER_COLOR,
 		OUTER_COLOR,
-		MOD_COLORS
+		MOD_COLOR
 	};
 
 	struct RGB {
@@ -89,7 +89,7 @@ namespace cGUI {
 		RGB fillColor;
 		RGB textColor;
 
-		RGB disableColor;
+		RGB idleColor;
 		RGB hoverColor;
 		RGB clickColor;
 
@@ -98,7 +98,7 @@ namespace cGUI {
 		int textX, textY;
 
 		int state;
-		int colorType = INNER_COLOR;
+		int colorType = MOD_COLOR;
 		int colorMod = 0;
 		bool radio = false;
 		bool radioSelect = false;
@@ -120,16 +120,16 @@ namespace cGUI {
 		RGB fillColor;
 		RGB textColor;
 
-		RGB disableColor;
+		RGB idleColor;
 		RGB hoverColor;
 		RGB clickColor;
 
 		std::string text;
 		enum Handle textPos;
 		int textX, textY;
-
+		
 		int state;
-		int colorType = INNER_COLOR;
+		int colorType = MOD_COLOR;
 		int colorMod = 0;
 		bool radio = false;
 		bool radioSelect = false;
@@ -137,12 +137,16 @@ namespace cGUI {
 
 	enum Handle {
 		NO_HANDLE = 0,
+		TOP,
 		TOP_LEFT,
 		TOP_CENTER,
 		TOP_RIGHT,
+		LEFT,
 		LEFT_CENTER,
 		CENTER,
+		RIGHT,
 		RIGHT_CENTER,
+		BOTTOM,
 		BOTTOM_LEFT, 
 		BOTTOM_CENTER,
 		BOTTOM_RIGHT

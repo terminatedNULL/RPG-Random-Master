@@ -45,6 +45,7 @@ void setRectColor(
 	cGUI::RGB cornerCol, cGUI::RGB horizCol, cGUI::RGB vertCol,
 	cGUI::RGB fillCol, cGUI::RGB textCol
 );
+void setOuterColors(cGUI::FancyRectangle& rect, cGUI::RGB color);
 void line(int x1, int y1, int x2, int y2, bool reset = false);
 
 //////////////////////////////////////////////////////////////////////////////
@@ -103,6 +104,44 @@ void drawRectangle(cGUI::Rectangle& rect) {
 	clearColors();
 	move(rect.x, rect.y);
 
+	cGUI::RGB& borderColor = rect.borderColor;
+	cGUI::RGB& fillColor = rect.fillColor;
+	cGUI::RGB& textColor = rect.textColor;
+
+	switch (rect.colorType) {
+	case cGUI::INNER_COLOR:
+		switch (rect.state) {
+		case cGUI::IDLE:
+			fillColor = rect.idleColor;
+			break;
+		case cGUI::HOVER:
+			fillColor = rect.hoverColor;
+			break;
+		case cGUI::CLICK:
+			fillColor = rect.clickColor;
+			break;
+		}
+		break;
+	case cGUI::OUTER_COLOR:
+		switch(rect.state) {
+	case cGUI::IDLE:
+		borderColor = rect.idleColor;
+		break;
+	case cGUI::HOVER:
+		borderColor = rect.hoverColor;
+		break;
+	case cGUI::CLICK:
+		borderColor = rect.clickColor;
+		break;
+		}
+		break;
+	case cGUI::MOD_COLOR:
+		borderColor + rect.colorMod;
+		fillColor + rect.colorMod;
+		textColor + rect.colorMod;
+		break;
+	}
+
 	setTextColor(rect.borderColor);
 	for (int i = 0; i < rect.borderWidth; i++) {
 		repeatChar(rect.borderChar, rect.width, true);
@@ -135,16 +174,47 @@ void drawRectangle(cGUI::FancyRectangle& rect) {
 	clearColors();
 	move(rect.x, rect.y);
 
-	cGUI::RGB cornerColor = rect.cornerColor;
-	cornerColor + rect.colorMod;
-	cGUI::RGB horizontalColor = rect.horizontalColor;
-	horizontalColor + rect.colorMod;
-	cGUI::RGB verticalColor = rect.verticalColor;
-	verticalColor + rect.colorMod;
-	cGUI::RGB fillColor = rect.fillColor;
-	fillColor + rect.colorMod;
-	cGUI::RGB textColor = rect.textColor;
-	textColor + rect.colorMod;
+	cGUI::RGB &cornerColor = rect.cornerColor;
+	cGUI::RGB &horizontalColor = rect.horizontalColor;
+	cGUI::RGB &verticalColor = rect.verticalColor;
+	cGUI::RGB &fillColor = rect.fillColor;
+	cGUI::RGB &textColor = rect.textColor;
+
+	switch (rect.colorType) {
+	case cGUI::INNER_COLOR:
+		switch (rect.state) {
+		case cGUI::IDLE:
+			fillColor = rect.idleColor;
+			break;
+		case cGUI::HOVER:
+			fillColor = rect.hoverColor;
+			break;
+		case cGUI::CLICK:
+			fillColor = rect.clickColor;
+			break;
+		}
+		break;
+	case cGUI::OUTER_COLOR:
+		switch (rect.state) {
+		case cGUI::IDLE:
+			setOuterColors(rect, rect.idleColor);
+			break;
+		case cGUI::HOVER:
+			setOuterColors(rect, rect.hoverColor);
+			break;
+		case cGUI::CLICK:
+			setOuterColors(rect, rect.clickColor);
+			break;
+		}
+		break;
+	case cGUI::MOD_COLOR:
+		cornerColor + rect.colorMod;
+		horizontalColor + rect.colorMod;
+		verticalColor + rect.colorMod;
+		fillColor + rect.colorMod;
+		textColor + rect.colorMod;
+		break;
+	}
 
 	for (int i = 0; i < rect.borderWidth; i++) {
 		setTextColor(cornerColor);
@@ -184,7 +254,6 @@ void drawRectangle(cGUI::FancyRectangle& rect) {
 		setBackgroundColor(fillColor);
 		std::cout << rect.text;
 	}
-	clearColors();
 }
 
 void setRectText(
@@ -365,21 +434,27 @@ void setRectState(cGUI::FancyRectangle& rect, int state) {
 
 void setInteractionColors(
 	cGUI::FancyRectangle& rect,
-	cGUI::RGB disable, cGUI::RGB hover, cGUI::RGB click
+	cGUI::RGB idle, cGUI::RGB hover, cGUI::RGB click
 ) {
-	rect.disableColor = disable;
+	rect.idleColor = idle;
 	rect.hoverColor = hover;
 	rect.clickColor = click;
 }
 
-void setRadio(cGUI::Rectangle& rect, bool state) {
+void setRadio(cGUI::Rectangle &rect, bool state) {
 	rect.radio = state;
 	drawRectangle(rect);
 }
 
-void setRadio(cGUI::FancyRectangle& rect, bool state) {
+void setRadio(cGUI::FancyRectangle &rect, bool state) {
 	rect.radio = state;
 	drawRectangle(rect);
+}
+
+void setOuterColors(cGUI::FancyRectangle& rect, cGUI::RGB color) {
+	rect.cornerColor = color;
+	rect.horizontalColor = color;
+	rect.verticalColor = color;
 }
 
 void line(int x1, int y1, int x2, int y2, bool reset) {
