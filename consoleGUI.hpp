@@ -45,6 +45,14 @@ void setRectColor(
 	cGUI::RGB cornerCol, cGUI::RGB horizCol, cGUI::RGB vertCol,
 	cGUI::RGB fillCol, cGUI::RGB textCol
 );
+void setRectState(cGUI::Rectangle& rect, int state);
+void setRectState(cGUI::FancyRectangle& rect, int state);
+void setInteractionColors(
+	cGUI::FancyRectangle& rect,
+	cGUI::RGB idle, cGUI::RGB hover, cGUI::RGB click
+);
+void setRadio(cGUI::Rectangle& rect, bool state);
+void setRadio(cGUI::FancyRectangle& rect, bool state);
 void setOuterColors(cGUI::FancyRectangle& rect, cGUI::RGB color);
 void line(int x1, int y1, int x2, int y2, bool reset = false);
 
@@ -101,6 +109,7 @@ cGUI::FancyRectangle createFancyRectangle(
 }
 
 void drawRectangle(cGUI::Rectangle& rect) {
+	if (rect.state == cGUI::DISABLED) { return; }
 	clearColors();
 	move(rect.x, rect.y);
 
@@ -171,6 +180,7 @@ void drawRectangle(cGUI::Rectangle& rect) {
 }
 
 void drawRectangle(cGUI::FancyRectangle& rect) {
+	if (rect.state == cGUI::DISABLED) { return; }
 	clearColors();
 	move(rect.x, rect.y);
 
@@ -260,6 +270,7 @@ void setRectText(
 	cGUI::Rectangle& rect, std::string text, cGUI::Handle position,
 	int xOffset, int yOffset
 ) {
+	if (rect.state == cGUI::DISABLED) { return; }
 	if (rect.x != -1 && rect.textPos == position) {
 		move(rect.textX, rect.textY);
 		std::cout << text;
@@ -323,13 +334,14 @@ void setRectText(
 	cGUI::FancyRectangle& rect, std::string text, cGUI::Handle position,
 	int xOffset, int yOffset
 ) {
+	rect.text = text;
+	if (rect.state == cGUI::DISABLED) { return; }
 	if (rect.x != -1 && rect.textPos == position) {
 		move(rect.textX, rect.textY);
 		std::cout << text;
 		return;
 	}
 
-	rect.text = text;
 	int tX = 0, tY = 0;
 
 	switch (position) {
@@ -406,7 +418,26 @@ void setRectColor(
 }
 
 void setRectState(cGUI::Rectangle& rect, int state) {
+	if (rect.state == state) { return; }
 
+	rect.state = state;
+	//Set rect colors based on state
+	switch (rect.state) {
+	case cGUI::DISABLED:
+		rect.colorMod = -50;
+		break;
+	case cGUI::IDLE:
+		rect.colorMod = 0;
+		break;
+	case cGUI::HOVER:
+		rect.colorMod = 50;
+		break;
+	case cGUI::CLICK:
+		rect.colorMod = 100;
+		break;
+	}
+
+	drawRectangle(rect);
 }
 
 void setRectState(cGUI::FancyRectangle& rect, int state) {
@@ -459,6 +490,7 @@ void setOuterColors(cGUI::FancyRectangle& rect, cGUI::RGB color) {
 
 void line(int x1, int y1, int x2, int y2, bool reset) {
 	//Implement closest line algorithm
+	//That takes work and I don't wanna right now, so fuck you.
 }
 
 #endif
