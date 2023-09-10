@@ -154,21 +154,56 @@ void drawRectangle(cGUI::Rectangle& rect) {
 
 	setTextColor(rect.borderColor);
 	for (int i = 0; i < rect.borderWidth; i++) {
-		repeatChar(rect.borderChar, rect.width, true);
+		if (!rect.sides[cGUI::TOP]) {
+			repeatChar(' ', rect.width, false);
+		} else {
+			if (!rect.sides[cGUI::LEFT]) { 
+				repeatChar(' ', rect.borderWidth, false); 
+			}
+			repeatChar(
+				rect.borderChar, rect.width - (rect.borderWidth * 2), false
+			);
+			if (!rect.sides[cGUI::RIGHT]) {
+				repeatChar(' ', rect.borderWidth, false);
+			}
+		}
 	}
 
 	for (int i = 0; i < rect.height - (rect.borderWidth * 2); i++) {
-		repeatChar(rect.borderChar, rect.borderWidth, false);
+		move(rect.x, rect.y + i + 1);
+		setTextColor(rect.borderColor);
+		if (!rect.sides[cGUI::LEFT]) {
+			repeatChar(' ', rect.borderWidth, false);
+		} else {
+			repeatChar(rect.borderChar, rect.borderWidth, false);
+		}
 		if (rect.fillChar == ' ') { setBackgroundColor(rect.fillColor); }
 			else { setTextColor(rect.fillColor); }
 		repeatChar(rect.fillChar, (rect.width - rect.borderWidth * 2), false);
 		clearColors();
 		setTextColor(rect.borderColor);
-		repeatChar(rect.borderChar, rect.borderWidth, true);
+		if (!rect.sides[cGUI::LEFT]) {
+			repeatChar(' ', rect.borderWidth, false);
+		}
+		else {
+			repeatChar(rect.borderChar, rect.borderWidth, false);
+		}
 	}
 
 	for (int i = 0; i < rect.borderWidth; i++) {
-		repeatChar(rect.borderChar, rect.width, false);
+		if (!rect.sides[cGUI::BOTTOM]) {
+			repeatChar(' ', rect.width, false);
+		} else {
+			if (!rect.sides[cGUI::LEFT]) {
+				repeatChar(' ', rect.borderWidth, false);
+			}
+			repeatChar(
+				rect.borderChar, rect.width - (rect.borderWidth * 2), false
+			);
+			if (!rect.sides[cGUI::RIGHT]) {
+				repeatChar(' ', rect.borderWidth, false);
+			}
+		}
 	}
 
 	if (rect.textX != -1) {
@@ -237,7 +272,9 @@ void drawRectangle(cGUI::FancyRectangle& rect) {
 			repeatExtChar(rect.cornerChars[0], rect.borderWidth, false);
 		} else { repeatExtChar(' ', rect.borderWidth, false); }
 		setTextColor(horizontalColor);
-		repeatExtChar(rect.horizontalChar, rect.width - (rect.borderWidth * 2), false);
+		repeatExtChar
+		(rect.horizontalChar, rect.width - (rect.borderWidth * 2), false
+		);
 		if (rect.sides[cGUI::RIGHT]) {
 			setTextColor(cornerColor);
 			repeatExtChar(rect.cornerChars[1], rect.borderWidth, false);
@@ -253,7 +290,9 @@ void drawRectangle(cGUI::FancyRectangle& rect) {
 		} else { repeatExtChar(' ', rect.borderWidth, false); }
 		if (rect.fillChar == ' ') { setBackgroundColor(fillColor); }
 		else { setTextColor(fillColor); }
-		repeatExtChar(rect.fillChar, rect.width - (rect.borderWidth * 2), false);
+		repeatExtChar(
+			rect.fillChar, rect.width - (rect.borderWidth * 2), false
+		);
 		clearColors();
 		if (rect.sides[cGUI::RIGHT]) {
 			setTextColor(verticalColor);
@@ -272,10 +311,12 @@ void drawRectangle(cGUI::FancyRectangle& rect) {
 			repeatExtChar(rect.cornerChars[2], rect.borderWidth, false);
 		} else { repeatExtChar(' ', rect.borderWidth, false); }
 		setTextColor(horizontalColor);
-		repeatExtChar(rect.horizontalChar, rect.width - (rect.borderWidth * 2), false);
+		repeatExtChar(
+			rect.horizontalChar, rect.width - (rect.borderWidth * 2), false
+		);
 		if (rect.sides[cGUI::RIGHT]) {
 			setTextColor(cornerColor);
-			repeatExtChar(rect.cornerChars[3], rect.borderWidth, false); \
+			repeatExtChar(rect.cornerChars[3], rect.borderWidth, false);
 		} else { repeatExtChar(' ', rect.borderWidth, false); }
 	}
 
