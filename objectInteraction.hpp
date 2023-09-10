@@ -7,10 +7,12 @@
 
 void addRect(cGUI::Rectangle *rect) {
 	rectObjects.push_back(rect);
+	drawRectangle(*rect);
 }
 
 void addRect(cGUI::FancyRectangle* rect) {
 	fancyRectObjects.push_back(rect);
+	drawRectangle(*rect);
 }
 
 void handleRectMouse(cGUI::Position mousePos) {

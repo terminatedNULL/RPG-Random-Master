@@ -54,6 +54,7 @@ void setInteractionColors(
 void setRadio(cGUI::Rectangle& rect, bool state);
 void setRadio(cGUI::FancyRectangle& rect, bool state);
 void setOuterColors(cGUI::FancyRectangle& rect, cGUI::RGB color);
+void setRectSide(cGUI::Rectangle& rect, cGUI::Handle side, bool state);
 void line(int x1, int y1, int x2, int y2, bool reset = false);
 
 //////////////////////////////////////////////////////////////////////////////
@@ -227,35 +228,55 @@ void drawRectangle(cGUI::FancyRectangle& rect) {
 	}
 
 	for (int i = 0; i < rect.borderWidth; i++) {
-		setTextColor(cornerColor);
-		repeatExtChar(rect.cornerChars[0], rect.borderWidth, false);
+		if (!rect.sides[cGUI::TOP]) {
+			repeatExtChar(' ', rect.width, false);
+			break;
+		}
+		if (rect.sides[cGUI::LEFT]) {
+			setTextColor(cornerColor);
+			repeatExtChar(rect.cornerChars[0], rect.borderWidth, false);
+		} else { repeatExtChar(' ', rect.borderWidth, false); }
 		setTextColor(horizontalColor);
 		repeatExtChar(rect.horizontalChar, rect.width - (rect.borderWidth * 2), false);
-		setTextColor(cornerColor);
-		repeatExtChar(rect.cornerChars[1], rect.borderWidth, false);
+		if (rect.sides[cGUI::RIGHT]) {
+			setTextColor(cornerColor);
+			repeatExtChar(rect.cornerChars[1], rect.borderWidth, false);
+		} else { repeatExtChar(' ', rect.borderWidth, false); }
 		std::cout << "\n";
 	}
 
 	for (int i = 0; i < rect.height - (rect.borderWidth * 2); i++) {
 		move(rect.x, rect.y + i + 1);
-		setTextColor(verticalColor);
-		repeatExtChar(rect.verticalChar, rect.borderWidth, false);
+		if (rect.sides[cGUI::LEFT]) {
+			setTextColor(verticalColor);
+			repeatExtChar(rect.verticalChar, rect.borderWidth, false);
+		} else { repeatExtChar(' ', rect.borderWidth, false); }
 		if (rect.fillChar == ' ') { setBackgroundColor(fillColor); }
 		else { setTextColor(fillColor); }
 		repeatExtChar(rect.fillChar, rect.width - (rect.borderWidth * 2), false);
 		clearColors();
-		setTextColor(verticalColor);
-		repeatExtChar(rect.verticalChar, rect.borderWidth, false);
+		if (rect.sides[cGUI::RIGHT]) {
+			setTextColor(verticalColor);
+			repeatExtChar(rect.verticalChar, rect.borderWidth, false);
+		} else { repeatExtChar(' ', rect.borderWidth, false); }
 	}
 
 	for (int i = 0; i < rect.borderWidth; i++) {
+		if (!rect.sides[cGUI::BOTTOM]) { 
+			repeatExtChar(' ', rect.width, false);
+			break; 
+		}
 		move(rect.x, rect.y + rect.height - 1);
-		setTextColor(cornerColor);
-		repeatExtChar(rect.cornerChars[2], rect.borderWidth, false);
+		if (rect.sides[cGUI::LEFT]) {
+			setTextColor(cornerColor);
+			repeatExtChar(rect.cornerChars[2], rect.borderWidth, false);
+		} else { repeatExtChar(' ', rect.borderWidth, false); }
 		setTextColor(horizontalColor);
 		repeatExtChar(rect.horizontalChar, rect.width - (rect.borderWidth * 2), false);
-		setTextColor(cornerColor);
-		repeatExtChar(rect.cornerChars[3], rect.borderWidth, false); \
+		if (rect.sides[cGUI::RIGHT]) {
+			setTextColor(cornerColor);
+			repeatExtChar(rect.cornerChars[3], rect.borderWidth, false); \
+		} else { repeatExtChar(' ', rect.borderWidth, false); }
 	}
 
 	if (rect.textX != -1) {
@@ -486,6 +507,16 @@ void setOuterColors(cGUI::FancyRectangle& rect, cGUI::RGB color) {
 	rect.cornerColor = color;
 	rect.horizontalColor = color;
 	rect.verticalColor = color;
+}
+
+void setRectSide(cGUI::Rectangle& rect, cGUI::Side side, bool state) {
+	rect.sides[side] = state;
+	drawRectangle(rect);
+}
+
+void setRectSide(cGUI::FancyRectangle& rect, cGUI::Side side, bool state) {
+	rect.sides[side] = state;
+	drawRectangle(rect);
 }
 
 void line(int x1, int y1, int x2, int y2, bool reset) {

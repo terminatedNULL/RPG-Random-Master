@@ -103,6 +103,9 @@ namespace cGUI {
 		int colorMod = 0;
 		bool radio = false;
 		bool radioSelect = false;
+
+		//TOP, RIGHT, BOTTOM, LEFT
+		bool sides[4] = { true, true, true, true };
 	};
 
 	struct FancyRectangle {
@@ -134,20 +137,26 @@ namespace cGUI {
 		int colorMod = 0;
 		bool radio = false;
 		bool radioSelect = false;
+
+		//TOP, RIGHT, BOTTOM, LEFT
+		bool sides[4] = { true, true, true, true };
+	};
+
+	enum Side {
+		TOP = 0,
+		RIGHT,
+		BOTTOM,
+		LEFT
 	};
 
 	enum Handle {
 		NO_HANDLE = 0,
-		TOP,
 		TOP_LEFT,
 		TOP_CENTER,
 		TOP_RIGHT,
-		LEFT,
 		LEFT_CENTER,
 		CENTER,
-		RIGHT,
 		RIGHT_CENTER,
-		BOTTOM,
 		BOTTOM_LEFT, 
 		BOTTOM_CENTER,
 		BOTTOM_RIGHT
